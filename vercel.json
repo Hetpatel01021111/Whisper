@@ -1,0 +1,43 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "web-app/dist/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/health",
+      "dest": "/api/health.js"
+    },
+    {
+      "src": "/api/auth/create",
+      "dest": "/api/auth/create.js"
+    },
+    {
+      "src": "/api/auth/login",
+      "dest": "/api/auth/login.js"
+    },
+    {
+      "src": "/api/auth/generate-account-id",
+      "dest": "/api/auth/generate-account-id.js"
+    },
+    {
+      "src": "/api/auth/connect-by-account-id",
+      "dest": "/api/auth/connect-by-account-id.js"
+    },
+    {
+      "src": "/api/auth/connections",
+      "dest": "/api/auth/connections.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/web-app/dist/$1"
+    }
+  ]
+}

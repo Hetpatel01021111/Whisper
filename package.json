@@ -1,0 +1,22 @@
+{
+  "name": "session-messenger",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd web-app && npm run dev",
+    "start": "node backend/server.js",
+    "backend": "node backend/server.js",
+    "frontend": "cd web-app && npm run dev",
+    "build": "cd web-app && npm run build"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "gun": "^0.2020.1241",
+    "nanoid": "^3.3.7",
+    "simple-peer": "^9.11.1",
+    "socket.io": "^4.7.2",
+    "tweetnacl": "^1.0.3",
+    "tweetnacl-util": "^0.15.1"
+  }
+}
