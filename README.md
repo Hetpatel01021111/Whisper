@@ -55,7 +55,9 @@
 
 ---
 
-## 📊 **Message Flow Diagram**
+## 📊 **Feature Flow Diagrams**
+
+### **1. Text Message Flow**
 
 ```mermaid
 graph TB
@@ -81,6 +83,218 @@ graph TB
     style F fill:#ff6b35,stroke:#fff,color:#000
     style H fill:#9b59b6,stroke:#fff,color:#fff
     style L fill:#00a8ff,stroke:#fff,color:#000
+```
+
+### **2. File Sharing Flow (P2P Transfer)**
+
+```mermaid
+graph TB
+    A[👤 User Clicks + Button] --> B[📁 Select File]
+    B --> C[📦 Create File Blob]
+    C --> D[🔐 Encrypt File Chunks]
+    D --> E{Connection Type?}
+    
+    E -->|P2P Available| F[🌐 WebRTC Direct Transfer]
+    E -->|P2P Unavailable| G[📡 Server Relay]
+    
+    F --> H[📊 Progress: 0-100%]
+    G --> H
+    
+    H --> I[👤 Recipient Receives]
+    I --> J[🔓 Decrypt Chunks]
+    J --> K[📥 Reconstruct File]
+    K --> L[💾 Download/Save]
+    
+    style A fill:#00a8ff,stroke:#fff,color:#000
+    style D fill:#00ff88,stroke:#fff,color:#000
+    style F fill:#ff6b35,stroke:#fff,color:#000
+    style H fill:#f39c12,stroke:#fff,color:#000
+    style L fill:#2ecc71,stroke:#fff,color:#fff
+```
+
+### **3. Voice Message Flow**
+
+```mermaid
+graph TB
+    A[👤 Hold Mic Button] --> B[🎤 Start Recording]
+    B --> C[⏱️ Record Audio]
+    C --> D[👤 Release Button]
+    D --> E[🎵 Create Audio Blob]
+    E --> F[🔐 Encrypt Audio]
+    F --> G[📏 Add Padding]
+    G --> H{Send Method?}
+    
+    H -->|P2P| I[🌐 Direct Transfer]
+    H -->|Server| J[📡 Server Relay]
+    
+    I --> K[👤 Recipient]
+    J --> K
+    
+    K --> L[🔓 Decrypt Audio]
+    L --> M[🎧 Play Audio]
+    
+    style A fill:#00a8ff,stroke:#fff,color:#000
+    style B fill:#e74c3c,stroke:#fff,color:#fff
+    style F fill:#00ff88,stroke:#fff,color:#000
+    style I fill:#ff6b35,stroke:#fff,color:#000
+    style M fill:#9b59b6,stroke:#fff,color:#fff
+```
+
+### **4. Image/Video Sharing Flow**
+
+```mermaid
+graph TB
+    A[👤 Click + Button] --> B{Choose Source}
+    B -->|Gallery| C[📷 Select Media]
+    B -->|Camera| D[📸 Capture Photo/Video]
+    
+    C --> E[🖼️ Load Media]
+    D --> E
+    
+    E --> F[📦 Compress if needed]
+    F --> G[🔐 Encrypt Media]
+    G --> H[✂️ Split into Chunks]
+    H --> I{Transfer Method?}
+    
+    I -->|P2P| J[🌐 WebRTC Transfer]
+    I -->|Server| K[📡 Server Relay]
+    
+    J --> L[📊 Progress Bar]
+    K --> L
+    
+    L --> M[👤 Recipient]
+    M --> N[🔓 Decrypt Chunks]
+    N --> O[🔗 Reassemble Media]
+    O --> P[🖼️ Display in Chat]
+    
+    style A fill:#00a8ff,stroke:#fff,color:#000
+    style D fill:#e74c3c,stroke:#fff,color:#fff
+    style G fill:#00ff88,stroke:#fff,color:#000
+    style J fill:#ff6b35,stroke:#fff,color:#000
+    style P fill:#9b59b6,stroke:#fff,color:#fff
+```
+
+### **5. Emoji & Sticker Flow**
+
+```mermaid
+graph TB
+    A[👤 Click Emoji/Sticker Button] --> B[🎨 Open Picker]
+    B --> C{Select Type}
+    
+    C -->|Emoji| D[😀 Choose Emoji]
+    C -->|Sticker| E[🎭 Choose Sticker]
+    
+    D --> F[➕ Add to Message]
+    E --> G[📨 Send as Message]
+    
+    F --> H[✍️ Continue Typing]
+    H --> I[📤 Send Message]
+    
+    G --> J[🔐 Encrypt]
+    I --> J
+    
+    J --> K[📡 Transmit]
+    K --> L[👤 Recipient]
+    L --> M[🔓 Decrypt]
+    M --> N[📱 Display]
+    
+    style A fill:#00a8ff,stroke:#fff,color:#000
+    style D fill:#f39c12,stroke:#fff,color:#000
+    style E fill:#e74c3c,stroke:#fff,color:#fff
+    style J fill:#00ff88,stroke:#fff,color:#000
+    style N fill:#9b59b6,stroke:#fff,color:#fff
+```
+
+### **6. GIF Sharing Flow**
+
+```mermaid
+graph TB
+    A[👤 Click GIF Button] --> B[🔍 Open GIF Picker]
+    B --> C[🔎 Search GIFs]
+    C --> D[🎬 Select GIF]
+    D --> E[📥 Load GIF URL]
+    E --> F[🔐 Encrypt URL + Metadata]
+    F --> G[📤 Send Message]
+    G --> H{Connection?}
+    
+    H -->|P2P| I[🌐 Direct Send]
+    H -->|Server| J[📡 Server Relay]
+    
+    I --> K[👤 Recipient]
+    J --> K
+    
+    K --> L[🔓 Decrypt]
+    L --> M[📥 Fetch GIF]
+    M --> N[🎬 Display Animated]
+    
+    style A fill:#00a8ff,stroke:#fff,color:#000
+    style D fill:#f39c12,stroke:#fff,color:#000
+    style F fill:#00ff88,stroke:#fff,color:#000
+    style I fill:#ff6b35,stroke:#fff,color:#000
+    style N fill:#9b59b6,stroke:#fff,color:#fff
+```
+
+### **7. Voice/Video Call Flow**
+
+```mermaid
+graph TB
+    A[👤 Click Call Button] --> B{Call Type?}
+    B -->|Voice| C[📞 Voice Call]
+    B -->|Video| D[📹 Video Call]
+    
+    C --> E[🔐 Generate Call ID]
+    D --> E
+    
+    E --> F[📡 Send Call Offer]
+    F --> G[👤 Recipient Receives]
+    G --> H{Accept?}
+    
+    H -->|Yes| I[✅ Accept Call]
+    H -->|No| J[❌ Decline Call]
+    
+    I --> K[🤝 WebRTC Handshake]
+    K --> L[🔐 DTLS Encryption]
+    L --> M[🌐 P2P Connection]
+    M --> N[🎙️ Audio/Video Stream]
+    N --> O[📞 Call in Progress]
+    
+    J --> P[📱 Show Missed Call]
+    
+    style A fill:#00a8ff,stroke:#fff,color:#000
+    style E fill:#00ff88,stroke:#fff,color:#000
+    style M fill:#ff6b35,stroke:#fff,color:#000
+    style O fill:#2ecc71,stroke:#fff,color:#fff
+    style P fill:#e74c3c,stroke:#fff,color:#fff
+```
+
+### **8. Disappearing Message Flow**
+
+```mermaid
+graph TB
+    A[👤 Set Timer] --> B{Select Duration}
+    B --> C[⏱️ 5 minutes]
+    B --> D[⏱️ 1 hour]
+    B --> E[⏱️ 24 hours]
+    B --> F[⏱️ 7 days]
+    
+    C --> G[📨 Send Message]
+    D --> G
+    E --> G
+    F --> G
+    
+    G --> H[🔐 Encrypt + Timer]
+    H --> I[📡 Transmit]
+    I --> J[👤 Recipient]
+    J --> K[🔓 Decrypt]
+    K --> L[📱 Display Message]
+    L --> M[⏰ Start Timer]
+    M --> N[⏳ Countdown]
+    N --> O[🗑️ Auto-Delete]
+    
+    style A fill:#00a8ff,stroke:#fff,color:#000
+    style H fill:#00ff88,stroke:#fff,color:#000
+    style M fill:#f39c12,stroke:#fff,color:#000
+    style O fill:#e74c3c,stroke:#fff,color:#fff
 ```
 
 ---
