@@ -13,8 +13,26 @@ import { fileTransferManager } from './fileTransfer'
 function EclipseLogo() {
   return (
     <svg className="logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 25 L20 75 L70 75 L70 60 L35 60 L35 55 L65 55 L65 40 L35 40 L35 25 Z" 
-            fill="#ffffff" />
+      {/* Left vertical bar with perspective */}
+      <path d="M15 20 L25 15 L25 85 L15 80 Z" fill="#ffffff" />
+      
+      {/* Top horizontal bar */}
+      <path d="M25 15 L75 15 L70 25 L25 25 Z" fill="#ffffff" />
+      
+      {/* Middle horizontal bar */}
+      <path d="M25 45 L65 45 L60 55 L25 55 Z" fill="#ffffff" />
+      
+      {/* Bottom horizontal bar */}
+      <path d="M25 75 L75 75 L70 85 L25 85 Z" fill="#ffffff" />
+      
+      {/* Small right edge on top */}
+      <path d="M70 25 L75 15 L80 20 L75 30 Z" fill="#ffffff" />
+      
+      {/* Small right edge on middle */}
+      <path d="M60 55 L65 45 L70 50 L65 60 Z" fill="#ffffff" />
+      
+      {/* Small right edge on bottom */}
+      <path d="M70 85 L75 75 L80 80 L75 90 Z" fill="#ffffff" />
     </svg>
   )
 }
@@ -696,8 +714,13 @@ function Settings({ user, onBack, onProfile, onLogout, onPrivacy }) {
       <div style={{ textAlign: 'center', padding: '40px 20px', color: '#666' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '8px' }}>
           <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
-            <path d="M20 25 L20 75 L70 75 L70 60 L35 60 L35 55 L65 55 L65 40 L35 40 L35 25 Z" 
-                  fill="#00a8ff" />
+            <path d="M15 20 L25 15 L25 85 L15 80 Z" fill="#00a8ff" />
+            <path d="M25 15 L75 15 L70 25 L25 25 Z" fill="#00a8ff" />
+            <path d="M25 45 L65 45 L60 55 L25 55 Z" fill="#00a8ff" />
+            <path d="M25 75 L75 75 L70 85 L25 85 Z" fill="#00a8ff" />
+            <path d="M70 25 L75 15 L80 20 L75 30 Z" fill="#00a8ff" />
+            <path d="M60 55 L65 45 L70 50 L65 60 Z" fill="#00a8ff" />
+            <path d="M70 85 L75 75 L80 80 L75 90 Z" fill="#00a8ff" />
           </svg>
           <span style={{ fontSize: '16px', letterSpacing: '2px' }}>
             <span style={{ color: '#fff' }}>ECLIPSE</span>
