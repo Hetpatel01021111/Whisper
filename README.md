@@ -62,6 +62,246 @@
 
 ---
 
+## 🔄 Complete Service Flow Diagram
+
+### **Eclipse Platform - All Services Overview**
+
+This comprehensive diagram shows how all Eclipse services work together - from user authentication to messaging, file sharing, voice messages, and privacy features.
+
+```mermaid
+flowchart TB
+    subgraph USER["👤 USER LAYER"]
+        U1[User A]
+        U2[User B]
+    end
+
+    subgraph AUTH["🔐 AUTHENTICATION SERVICE"]
+        A1[Create Account]
+        A2[Generate 32-char Access Key]
+        A3[Login with Access Key]
+        A4[Generate Session Token]
+        A5[Generate Account ID for Sharing]
+    end
+
+    subgraph CRYPTO["🔒 ENCRYPTION SERVICE - Signal Protocol"]
+        C1[Generate Identity Keys]
+        C2[Generate Pre-Keys 100x]
+        C3[X3DH Key Exchange]
+        C4[Double Ratchet Algorithm]
+        C5[AES-256-CBC Encryption]
+        C6[HMAC-SHA256 Authentication]
+        C7[Perfect Forward Secrecy]
+    end
+
+    subgraph MSG["💬 MESSAGING SERVICE"]
+        M1[Text Messages]
+        M2[Voice Messages]
+        M3[Message Reactions]
+        M4[Typing Indicators]
+        M5[Read Receipts]
+        M6[Self-Destructing Messages]
+        M7[Message Queue]
+    end
+
+    subgraph FILE["📁 FILE TRANSFER SERVICE"]
+        F1[Select File]
+        F2[Chunk File into Parts]
+        F3[Encrypt Each Chunk]
+        F4[Transfer via P2P/Server]
+        F5[Reassemble at Recipient]
+        F6[Decrypt File]
+    end
+
+    subgraph VOICE["🎤 VOICE MESSAGE SERVICE"]
+        V1[Hold to Record]
+        V2[Capture Audio Stream]
+        V3[Create Audio Blob]
+        V4[Encrypt Audio]
+        V5[Send Encrypted Audio]
+        V6[Decrypt & Play]
+    end
+
+    subgraph PRIVACY["🕵️ PRIVACY NETWORK SERVICE"]
+        P1[Onion Routing - 3 Hops]
+        P2[Traffic Padding]
+        P3[Dummy Messages]
+        P4[IP Masking]
+        P5[Metadata Protection]
+    end
+
+    subgraph NETWORK["🌐 NETWORK LAYER"]
+        N1[WebSocket Server]
+        N2[WebRTC P2P Direct]
+        N3[Server Relay Fallback]
+        N4[STUN/TURN Servers]
+    end
+
+    subgraph STORAGE["💾 STORAGE LAYER"]
+        S1[IndexedDB - Keys]
+        S2[LocalStorage - Session]
+        S3[Server JSON - Routing Only]
+    end
+
+    %% Authentication Flow
+    U1 --> A1
+    A1 --> A2
+    A2 --> C1
+    C1 --> C2
+    A2 --> A4
+    A3 --> A4
+    A4 --> S2
+    A5 -->|Share Code| U2
+
+    %% Key Exchange Flow
+    C1 --> S1
+    C2 --> S1
+    U1 -->|Connect| C3
+    U2 -->|Connect| C3
+    C3 --> C4
+    C4 --> C7
+
+    %% Messaging Flow
+    U1 -->|Type Message| M1
+    M1 --> C5
+    C5 --> C6
+    C6 --> P2
+    P2 --> N1
+    
+    %% Network Decision
+    N1 -->|Check P2P| N4
+    N4 -->|Success| N2
+    N4 -->|Fail| N3
+    N2 --> U2
+    N3 --> U2
+
+    %% Voice Message Flow
+    U1 -->|Hold Mic| V1
+    V1 --> V2
+    V2 --> V3
+    V3 --> V4
+    V4 --> C5
+
+    %% File Transfer Flow
+    U1 -->|Select File| F1
+    F1 --> F2
+    F2 --> F3
+    F3 --> C5
+    F4 --> N2
+    F4 --> N3
+    F5 --> F6
+    F6 --> U2
+
+    %% Privacy Flow
+    C6 -->|Optional| P1
+    P1 --> P4
+    P4 --> P5
+    P3 --> P2
+
+    %% Self-Destruct Flow
+    M6 -->|Timer Set| M7
+    M7 -->|Expire| M6
+
+    %% Decryption at Recipient
+    U2 -->|Receive| C4
+    C4 --> C5
+    C5 -->|Decrypt| U2
+
+    style USER fill:#00a8ff,stroke:#fff,color:#000
+    style AUTH fill:#9b59b6,stroke:#fff,color:#fff
+    style CRYPTO fill:#00ff88,stroke:#fff,color:#000
+    style MSG fill:#f39c12,stroke:#fff,color:#000
+    style FILE fill:#e74c3c,stroke:#fff,color:#fff
+    style VOICE fill:#3498db,stroke:#fff,color:#fff
+    style PRIVACY fill:#2c3e50,stroke:#fff,color:#fff
+    style NETWORK fill:#ff6b35,stroke:#fff,color:#000
+    style STORAGE fill:#1abc9c,stroke:#fff,color:#000
+```
+
+### **Service Interaction Matrix**
+
+| Service | Depends On | Provides To | Security Level |
+|---------|------------|-------------|----------------|
+| 🔐 **Authentication** | Crypto | All Services | 🔒🔒🔒 Maximum |
+| 🔒 **Encryption** | Keys | Messaging, Files, Voice | 🔒🔒🔒 Maximum |
+| 💬 **Messaging** | Encryption, Network | Users | 🔒🔒🔒 Maximum |
+| 📁 **File Transfer** | Encryption, P2P | Users | 🔒🔒🔒 Maximum |
+| 🎤 **Voice Messages** | Encryption, Network | Users | 🔒🔒🔒 Maximum |
+| 🕵️ **Privacy Network** | Network | All Services | 🔒🔒🔒 Maximum |
+| 🌐 **Network** | WebSocket, WebRTC | All Services | 🔒🔒 High |
+| 💾 **Storage** | Encryption | Auth, Keys | 🔒🔒🔒 Maximum |
+
+### **End-to-End Message Journey**
+
+```mermaid
+sequenceDiagram
+    participant A as 👤 Alice
+    participant CA as 📱 Alice's Client
+    participant E as 🔐 Encryption
+    participant P as 🕵️ Privacy Layer
+    participant N as 🌐 Network
+    participant CB as 📱 Bob's Client
+    participant B as 👥 Bob
+
+    Note over A,B: 🔄 COMPLETE MESSAGE FLOW
+
+    rect rgb(0, 168, 255, 0.1)
+        Note over A,CA: 1️⃣ USER INPUT
+        A->>CA: Type/Record/Select Message
+        CA->>CA: Validate Input
+    end
+
+    rect rgb(0, 255, 136, 0.1)
+        Note over CA,E: 2️⃣ ENCRYPTION
+        CA->>E: Plaintext Data
+        E->>E: Get Message Key (Ratchet)
+        E->>E: AES-256-CBC Encrypt
+        E->>E: HMAC-SHA256 Sign
+        E->>E: Destroy Message Key
+        E->>CA: Encrypted Payload
+    end
+
+    rect rgb(44, 62, 80, 0.1)
+        Note over CA,P: 3️⃣ PRIVACY (Optional)
+        CA->>P: Encrypted Payload
+        P->>P: Add Traffic Padding
+        P->>P: Wrap in Onion Layers
+        P->>CA: Privacy-Enhanced Payload
+    end
+
+    rect rgb(255, 107, 53, 0.1)
+        Note over CA,N: 4️⃣ TRANSMISSION
+        CA->>N: Send Payload
+        alt P2P Available
+            N->>N: WebRTC Direct
+            N->>CB: Direct Transfer
+        else P2P Unavailable
+            N->>N: Server Relay
+            N->>CB: Relayed Transfer
+        end
+    end
+
+    rect rgb(0, 255, 136, 0.1)
+        Note over CB,E: 5️⃣ DECRYPTION
+        CB->>E: Encrypted Payload
+        E->>E: Verify HMAC
+        E->>E: Get Message Key (Ratchet)
+        E->>E: AES-256-CBC Decrypt
+        E->>E: Destroy Message Key
+        E->>CB: Plaintext Data
+    end
+
+    rect rgb(0, 168, 255, 0.1)
+        Note over CB,B: 6️⃣ DELIVERY
+        CB->>CB: Process Message Type
+        CB->>B: Display Message
+        CB->>CA: Send Read Receipt
+    end
+
+    Note over A,B: ✅ Zero-Knowledge: Server Never Sees Content
+```
+
+---
+
 ## 🏗️ Architecture
 
 ### **System Overview**
