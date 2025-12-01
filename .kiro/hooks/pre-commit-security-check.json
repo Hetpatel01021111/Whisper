@@ -1,0 +1,12 @@
+{
+  "name": "Security Check Before Commit",
+  "description": "Scans code for potential security issues before committing",
+  "trigger": {
+    "type": "manual",
+    "label": "🔒 Run Security Check"
+  },
+  "action": {
+    "type": "message",
+    "content": "Please review the following files for security issues:\n1. Check for hardcoded secrets or API keys\n2. Verify no sensitive data is being logged\n3. Ensure all user inputs are validated\n4. Confirm encryption is applied before transmission\n5. Check that private keys are never transmitted\n\nFocus on files in: web-app/src/crypto.js, backend/modules/auth/, api/auth/"
+  }
+}

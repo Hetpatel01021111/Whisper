@@ -1,0 +1,12 @@
+{
+  "name": "Test Encryption Functions",
+  "description": "Runs encryption unit tests when crypto files are modified",
+  "trigger": {
+    "type": "onSave",
+    "filePattern": "**/crypto.js"
+  },
+  "action": {
+    "type": "command",
+    "command": "npm test -- crypto.test.js"
+  }
+}
