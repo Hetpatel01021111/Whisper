@@ -196,43 +196,43 @@ We organized specs in `.kiro/specs/` with three files per feature:
 | Missing privacy considerations | Privacy-first suggestions |
 | Context switching needed | Seamless continuation |
 
----
+    ---
 
-## 🔌 MCP (Model Context Protocol)
+    ## 🔌 MCP (Model Context Protocol)
 
-### N/A
+    ### N/A
 
-We did not use MCP extensions for this project. All development was done using Kiro's built-in capabilities.
+    We did not use MCP extensions for this project. All development was done using Kiro's built-in capabilities.
 
----
+    ---
 
-## 📊 Summary: Kiro's Impact on Eclipse
+    ## 📊 Summary: Kiro's Impact on Eclipse
 
-### Development Time Savings
+    ### Development Time Savings
 
-| Task | Without Kiro | With Kiro | Savings |
-|------|--------------|-----------|---------|
-| Signal Protocol | ~2 weeks | ~3 days | 78% |
-| Privacy Network | ~1 week | ~2 days | 71% |
-| UI Components | ~1 week | ~2 days | 71% |
-| Documentation | ~3 days | ~4 hours | 83% |
-| **Total** | **~4 weeks** | **~8 days** | **~70%** |
+    | Task | Without Kiro | With Kiro | Savings |
+    |------|--------------|-----------|---------|
+    | Signal Protocol | ~2 weeks | ~3 days | 78% |
+    | Privacy Network | ~1 week | ~2 days | 71% |
+    | UI Components | ~1 week | ~2 days | 71% |
+    | Documentation | ~3 days | ~4 hours | 83% |
+    | **Total** | **~4 weeks** | **~8 days** | **~70%** |
 
-### Quality Improvements
+    ### Quality Improvements
 
-- **Security**: Steering ensured security-first development
-- **Consistency**: Specs maintained architectural consistency
-- **Documentation**: Auto-generated comprehensive docs
-- **Testing**: Hooks automated quality checks
+    - **Security**: Steering ensured security-first development
+    - **Consistency**: Specs maintained architectural consistency
+    - **Documentation**: Auto-generated comprehensive docs
+    - **Testing**: Hooks automated quality checks
 
-### Key Takeaways
+    ### Key Takeaways
 
-1. **Spec-driven for complex features** - Signal Protocol, privacy network
-2. **Vibe coding for iteration** - UI/UX, quick fixes
-3. **Steering for consistency** - Security, privacy, code style
-4. **Hooks for automation** - Testing, security checks
+    1. **Spec-driven for complex features** - Signal Protocol, privacy network
+    2. **Vibe coding for iteration** - UI/UX, quick fixes
+    3. **Steering for consistency** - Security, privacy, code style
+    4. **Hooks for automation** - Testing, security checks
 
----
+    ---
 
 ## 🏆 Submission Categories
 

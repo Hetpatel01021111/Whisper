@@ -8,6 +8,7 @@ import { initializeEncryption, encryptMessage, decryptMessage, getStoredKeys, ge
 import keyStorageAPI from './keyStorageAPI'
 import { privacyNetwork, sendPrivateMessage, onPrivateMessage } from './privacyNetwork'
 import { fileTransferManager } from './fileTransfer'
+import WebGLShader from './components/WebGLShader'
 
 // Eclipse Logo SVG Component
 function EclipseLogo() {
@@ -39,21 +40,24 @@ function EclipseLogo() {
 
 function SignIn({ onNewAccount, onHaveKey }) {
   return (
-    <div className="auth-container">
-      <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-        <EclipseLogo />
-        <div className="logo-text">ECLIPSE</div>
+    <>
+      <WebGLShader />
+      <div className="auth-container" style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+          <EclipseLogo />
+          <div className="logo-text">ECLIPSE</div>
+        </div>
+        <h1 className="title">Welcome to Eclipse</h1>
+        <p className="subtitle">Anonymous, decentralized messaging</p>
+        
+        <button onClick={onNewAccount} style={{ marginBottom: '16px' }}>
+          Create New Account
+        </button>
+        <button className="secondary" onClick={onHaveKey}>
+          I Have an Access Key
+        </button>
       </div>
-      <h1 className="title">Welcome to Eclipse</h1>
-      <p className="subtitle">Anonymous, decentralized messaging</p>
-      
-      <button onClick={onNewAccount} style={{ marginBottom: '16px' }}>
-        Create New Account
-      </button>
-      <button className="secondary" onClick={onHaveKey}>
-        I Have an Access Key
-      </button>
-    </div>
+    </>
   )
 }
 
